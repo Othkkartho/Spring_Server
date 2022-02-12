@@ -1,0 +1,77 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.28'
+    // https://mvnrepository.com/artifact/javax.activation/activation
+    implementation group: 'javax.activation', name: 'activation', version: '1.1.1'
+    // https://mvnrepository.com/artifact/javax.mail/javax.mail-api
+    implementation group: 'javax.mail', name: 'javax.mail-api', version: '1.6.2'
+    // https://mvnrepository.com/artifact/junit/junit
+    testImplementation group: 'junit', name: 'junit', version: '4.13.2'
+    // https://mvnrepository.com/artifact/cglib/cglib
+    implementation group: 'cglib', name: 'cglib', version: '3.3.0'
+    // https://mvnrepository.com/artifact/aopalliance/aopalliance
+    implementation group: 'aopalliance', name: 'aopalliance', version: '1.0'
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
+    // https://mvnrepository.com/artifact/org.aspectj/aspectjtools
+    implementation group: 'org.aspectj', name: 'aspectjtools', version: '1.9.8'
+    // https://mvnrepository.com/artifact/org.codehaus.castor/castor
+    implementation group: 'org.codehaus.castor', name: 'castor', version: '1.4.1', ext: 'pom'
+    // https://mvnrepository.com/artifact/hsqldb/hsqldb
+    testImplementation group: 'hsqldb', name: 'hsqldb', version: '1.8.0.10'
+    // https://mvnrepository.com/artifact/org.springframework/spring-core
+    implementation group: 'org.springframework', name: 'spring-core', version: '5.3.15'
+    // https://mvnrepository.com/artifact/org.springframework/spring-beans
+    implementation group: 'org.springframework', name: 'spring-beans', version: '5.3.15'
+    // https://mvnrepository.com/artifact/org.springframework/spring-context
+    implementation group: 'org.springframework', name: 'spring-context', version: '5.3.15'
+    // https://mvnrepository.com/artifact/org.springframework/spring-jdbc
+    implementation group: 'org.springframework', name: 'spring-jdbc', version: '5.3.15'
+    // https://mvnrepository.com/artifact/org.springframework/spring-aop
+    implementation group: 'org.springframework', name: 'spring-aop', version: '5.3.15'
+    // https://mvnrepository.com/artifact/org.springframework/spring-asm
+    implementation group: 'org.springframework', name: 'spring-asm', version: '3.1.4.RELEASE'
+    // https://mvnrepository.com/artifact/org.springframework/spring-aspects
+    implementation group: 'org.springframework', name: 'spring-aspects', version: '5.3.15'
+    // https://mvnrepository.com/artifact/org.springframework/spring-context-support
+    implementation group: 'org.springframework', name: 'spring-context-support', version: '5.3.15'
+    // https://mvnrepository.com/artifact/org.springframework/spring-context
+    implementation group: 'org.springframework', name: 'spring-context', version: '5.3.15'
+    // https://mvnrepository.com/artifact/org.springframework/spring-expression
+    implementation group: 'org.springframework', name: 'spring-expression', version: '5.3.15'
+    // https://mvnrepository.com/artifact/org.springframework/spring-tx
+    implementation group: 'org.springframework', name: 'spring-tx', version: '5.3.15'
+    // https://mvnrepository.com/artifact/org.springframework/spring-oxm
+    implementation group: 'org.springframework', name: 'spring-oxm', version: '5.3.15'
+    // https://mvnrepository.com/artifact/org.springframework/spring-test
+    testImplementation group: 'org.springframework', name: 'spring-test', version: '5.3.15'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-tomcat
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '2.6.3'
+    // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+    implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: '10.1.0-M10'
+    // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-annotations-api
+    implementation group: 'org.apache.tomcat', name: 'tomcat-annotations-api', version: '10.1.0-M10'
+    // https://mvnrepository.com/artifact/jakarta.annotation/jakarta.annotation-api
+    implementation group: 'jakarta.annotation', name: 'jakarta.annotation-api', version: '2.0.0'
+    // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-el
+    implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-el', version: '10.1.0-M10'
+    // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-websocket
+    implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-websocket', version: '10.1.0-M10'
+}
+
+test {
+    useJUnitPlatform()
+}
