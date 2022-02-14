@@ -4,12 +4,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
+import org.springframework.jdbc.support.SQLExceptionTranslator;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import server.user.domain.User;
 
+import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -17,10 +21,11 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations="/applicationContext.xml")
-@DirtiesContext
 public class UserDaoTest {
     @Autowired
-    private UserDao dao;
+    UserDao dao;
+    @Autowired
+    DataSource dataSource;
 
     private User user1;
     private User user2;
@@ -111,5 +116,28 @@ public class UserDaoTest {
         assertThat(user1.getName()).isEqualTo(user2.getName());
         assertThat(user1.getSex()).isEqualTo(user2.getSex());
         assertThat(user1.getAge()).isEqualTo(user2.getAge());
+    }
+
+    @Test(expected = DuplicateKeyException.class)
+    public void duplciateKey() {
+        dao.deleteAll();
+
+        dao.add(user1);
+        dao.add(user1);
+    }
+
+    @Test // this test is failed
+    public void sqlExceptionTranslate() {
+        dao.deleteAll();;
+
+        try {
+            dao.add(user1);
+            dao.add(user1);
+        } catch (DuplicateKeyException ex) {
+            SQLException sqlEx = (SQLException) ex.getCause();
+            SQLExceptionTranslator set = new SQLErrorCodeSQLExceptionTranslator(this.dataSource);
+            DataAccessException transEx = set.translate(null, null, sqlEx);
+            assertThat(transEx).isEqualTo(DuplicateKeyException.class);
+        }
     }
 }
