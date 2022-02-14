@@ -70,6 +70,8 @@ dependencies {
     implementation group: 'org.apache.tomcat', name: 'tomcat-annotations-api', version: '10.1.0-M10'
     // https://mvnrepository.com/artifact/jakarta.annotation/jakarta.annotation-api
     implementation group: 'jakarta.annotation', name: 'jakarta.annotation-api', version: '2.0.0'
+    // https://mvnrepository.com/artifact/org.assertj/assertj-core
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.22.0'
 }
 
 test {
