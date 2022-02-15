@@ -126,7 +126,7 @@ public class UserDaoTest {
         dao.add(user1);
     }
 
-    @Test // this test is failed
+    @Test
     public void sqlExceptionTranslate() {
         dao.deleteAll();;
 
@@ -137,7 +137,7 @@ public class UserDaoTest {
             SQLException sqlEx = (SQLException) ex.getCause();
             SQLExceptionTranslator set = new SQLErrorCodeSQLExceptionTranslator(this.dataSource);
             DataAccessException transEx = set.translate(null, null, sqlEx);
-            assertThat(transEx).isEqualTo(DuplicateKeyException.class);
+            assertThat(transEx).isInstanceOf(DuplicateKeyException.class);
         }
     }
 }
