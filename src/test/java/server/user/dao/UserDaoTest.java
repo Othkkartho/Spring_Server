@@ -11,6 +11,7 @@ import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
 import org.springframework.jdbc.support.SQLExceptionTranslator;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import server.user.domain.Level;
 import server.user.domain.User;
 
 import javax.sql.DataSource;
@@ -33,9 +34,9 @@ public class UserDaoTest {
 
     @Before
     public void setUp() {
-        this.user1 = new User("gentry", "gloria", "Gentry Gloria", "F", 33);
-        this.user2 = new User("page", "adolfo", "Page Adolfo", "M", 22);
-        this.user3 = new User("byrne", "lola", "Byrne Lola", "F", 26);
+        this.user1 = new User("gentry@gmail.com", "gloria", "Gentry Gloria", "F", 33, Level.BRONZE, 5, 20000);
+        this.user2 = new User("page@gmail.com", "adolfo", "Page Adolfo", "M", 22, Level.SILVER, 7, 500000);
+        this.user3 = new User("byrne@gmail.com", "lola", "Byrne Lola", "F", 26, Level.GOLD, 12, 1200000);
     }
 
     @Test
@@ -48,16 +49,10 @@ public class UserDaoTest {
         assertThat(dao.getCount()).isEqualTo(2);
 
         User userget1 = dao.get(user1.getId());
-        assertThat(userget1.getPassword()).isEqualTo(user1.getPassword());
-        assertThat(userget1.getName()).isEqualTo(user1.getName());
-        assertThat(userget1.getSex()).isEqualTo(user1.getSex());
-        assertThat(userget1.getAge()).isEqualTo(user1.getAge());
+        checkSameUser(userget1, user1);
 
         User userget2 = dao.get(user2.getId());
-        assertThat(userget2.getPassword()).isEqualTo(user2.getPassword());
-        assertThat(userget2.getName()).isEqualTo(user2.getName());
-        assertThat(userget2.getSex()).isEqualTo(user2.getSex());
-        assertThat(userget2.getAge()).isEqualTo(user2.getAge());
+        checkSameUser(userget2, user2);
     }
 
     @Test(expected= EmptyResultDataAccessException.class)
@@ -116,6 +111,9 @@ public class UserDaoTest {
         assertThat(user1.getName()).isEqualTo(user2.getName());
         assertThat(user1.getSex()).isEqualTo(user2.getSex());
         assertThat(user1.getAge()).isEqualTo(user2.getAge());
+        assertThat(user1.getLevel()).isEqualTo(user2.getLevel());
+        assertThat(user1.getVisit()).isEqualTo(user2.getVisit());
+        assertThat(user1.getCash()).isEqualTo(user2.getCash());
     }
 
     @Test(expected = DuplicateKeyException.class)
@@ -139,5 +137,27 @@ public class UserDaoTest {
             DataAccessException transEx = set.translate(null, null, sqlEx);
             assertThat(transEx).isInstanceOf(DuplicateKeyException.class);
         }
+    }
+
+    @Test
+    public void update() {
+        dao.deleteAll();
+
+        dao.add(user1);
+        dao.add(user2);
+
+        user1.setPassword("Glorias");
+        user1.setName("Gloria");
+        user1.setLevel(Level.SILVER);
+        user1.setVisit(8);
+        user1.setCash(2450000);
+
+        dao.update(user1);
+
+        User user1update = dao.get(user1.getId());
+        checkSameUser(user1, user1update);
+
+        User user2same = dao.get(user2.getId());
+        checkSameUser(user2, user2same);
     }
 }
