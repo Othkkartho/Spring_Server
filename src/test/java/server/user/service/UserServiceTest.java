@@ -28,7 +28,7 @@ import static org.mockito.Mockito.*;
 import static server.user.service.UserServiceImpl.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/applicationContext.xml")
+@ContextConfiguration(locations="/applicationContext.xml")
 public class UserServiceTest {
     @Autowired UserService userService;
     @Autowired UserService testUserService;
@@ -200,7 +200,7 @@ public class UserServiceTest {
         userService.add(users.get(1));
     }
 
-    static class TestUserService extends UserServiceImpl {
+    public static class TestUserService extends UserServiceImpl {
         private String id = "power@gmail.com";
 
         protected void upgradeLevel(User user) {
