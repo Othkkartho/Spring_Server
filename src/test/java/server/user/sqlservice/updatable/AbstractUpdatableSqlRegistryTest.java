@@ -9,8 +9,7 @@ import server.user.sqlservice.UpdatableSqlRegistry;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public abstract class AbstractUpdatableSqlRegistryTest {
 	UpdatableSqlRegistry sqlRegistry;
@@ -36,9 +35,9 @@ public abstract class AbstractUpdatableSqlRegistryTest {
 	}
 	
 	protected void checkFind(String expected1, String expected2, String expected3) {
-		assertThat(sqlRegistry.findSql("KEY1"), is(expected1));		
-		assertThat(sqlRegistry.findSql("KEY2"), is(expected2));		
-		assertThat(sqlRegistry.findSql("KEY3"), is(expected3));		
+		assertThat(sqlRegistry.findSql("KEY1")).isEqualTo(expected1);
+		assertThat(sqlRegistry.findSql("KEY2")).isEqualTo(expected2);
+		assertThat(sqlRegistry.findSql("KEY3")).isEqualTo(expected3);
 	}
 	
 	@Test
